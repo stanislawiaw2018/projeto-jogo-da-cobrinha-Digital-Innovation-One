@@ -11,7 +11,9 @@ let direction = "right";
 let food = {
     x: Math.floor(Math.random() * 15 + 1) * box,
     y: Math.floor(Math.random() * 15 + 1) * box 
-}
+};
+let buttom = document.querySelector("button");
+var game;
 
 //Resposavel pela criação e construção do background do tabuleiro do jogo
 function createBG() {
@@ -42,7 +44,12 @@ function update(event){
     if(event.keyCode == 40 && direction != "up") direction = "down";
 
 }
-
+document.addEventListener('click', function(){
+    game = setInterval(startGame, 100);
+    document.querySelector("button").setAttribute('hidden','true');
+    document.querySelector("#snake").removeAttribute("hidden");
+   
+});
 function startGame(){
     //Define a cobrinha a atravessar a parede
     if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
@@ -54,6 +61,7 @@ function startGame(){
         if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
             clearInterval(game);
             alert('GAMER OVER!!!');
+            window.location.reload(true);
         }
     }
 
@@ -85,4 +93,3 @@ function startGame(){
     snake.unshift(newHead);
 }
 
-let game = setInterval(startGame, 100);
